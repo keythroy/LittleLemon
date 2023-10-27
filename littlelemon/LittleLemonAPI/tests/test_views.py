@@ -1,7 +1,6 @@
 from django.test import TestCase, Client
 from restaurant.models import Menu
 from restaurant.serializers import MenuSerializer
-from django.core import serializers
 from django.contrib.auth.models import User
 
 
@@ -13,8 +12,10 @@ class MenuViewTest(TestCase):
         Menu.objects.create(Title="Coffe", Price=2, Inventory=100)
         Menu.objects.create(Title="Sandwich", Price=30, Inventory=100)
 
+        self.path = "/api/menu-items/"
+
     def test_unathenticated_user(self):
-        response = self.client.get("/restaurant/menu/items/")
+        response = self.client.get(self.path)
         self.assertEqual(response.status_code, 401)
 
     def user_login(self):
@@ -27,7 +28,7 @@ class MenuViewTest(TestCase):
     def test_get_menu_items(self):
         self.user_login()
 
-        response = self.client.get("/restaurant/menu/items/")
+        response = self.client.get(self.path)
         self.assertEqual(response.status_code, 200)
 
         expected = MenuSerializer(Menu.objects.all(),many=True)
