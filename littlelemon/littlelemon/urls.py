@@ -22,14 +22,13 @@ from LittleLemonAPI import views as apiviews
 from rest_framework.authtoken.views import obtain_auth_token
 
 router = routers.DefaultRouter()
-router.register(r'tables', restaurantviews.BookingViewSet)
 
 urlpatterns = [
+    path('', include('restaurant.urls')),
     path('admin/', admin.site.urls),
     path('restaurant/', include('restaurant.urls')),
-    path('restaurant/booking/', include(router.urls)),
     path('api/',include('LittleLemonAPI.urls')),
     path('api-token-auth/', obtain_auth_token),
     path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken'))
+    path('auth/', include('djoser.urls.authtoken')),
 ]
