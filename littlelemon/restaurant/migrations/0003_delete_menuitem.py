@@ -4,13 +4,12 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('restaurant', '0002_menuitem'),
+        ("restaurant", "0002_menuitem"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='MenuItem',
+            name="MenuItem",
         ),
     ]
